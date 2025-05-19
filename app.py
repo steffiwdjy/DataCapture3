@@ -395,8 +395,8 @@ else:
                             d["waktu_checkout"] = waktu_checkout
                             d["diedit_oleh"] = st.session_state.user
                             # Save to Gist instead of local file
-                            success = save_json_to_gist(rentals)
-                            if success:
+                            success_rentals = save_json_to_gist(rentals, RENTALS_FILENAME)
+                            if success_rentals:
                                 st.success("Waktu check-out disimpan")
                             else:
                                 st.error("Gagal menyimpan data ke Gist!")
@@ -412,8 +412,8 @@ else:
                         d["komentar"] = selected_komentar
                         d["diedit_oleh"] = st.session_state.user
                         # Save to Gist instead of local file
-                        success = save_json_to_gist(rentals)
-                        if success:
+                        success_rentals = save_json_to_gist(rentals, RENTALS_FILENAME)
+                        if success_rentals:
                             st.success("Komentar diperbarui")
                         else:
                             st.error("Gagal menyimpan data ke Gist!")
