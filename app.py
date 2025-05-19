@@ -11,7 +11,6 @@ from io import BytesIO
 from streamlit_option_menu import option_menu
 import requests
 import json
-# from dotenv import load_dotenv
 from dotenv.main import load_dotenv
 
 
