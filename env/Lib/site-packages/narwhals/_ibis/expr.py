@@ -197,15 +197,13 @@ class IbisExpr(LazyExpr["IbisLazyFrame", "ir.Column"]):
         )
 
     @classmethod
-    def from_column_indices(
-        cls: type[Self], *column_indices: int, context: _FullContext
-    ) -> Self:
+    def from_column_indices(cls, *column_indices: int, context: _FullContext) -> Self:
         def func(df: IbisLazyFrame) -> list[ir.Column]:
             return [df.native[i] for i in column_indices]
 
         return cls(
             func,
-            evaluate_output_names=lambda df: [df.columns[i] for i in column_indices],
+            evaluate_output_names=cls._eval_names_indices(column_indices),
             alias_output_names=None,
             backend_version=context._backend_version,
             version=context._version,
@@ -647,6 +645,17 @@ class IbisExpr(LazyExpr["IbisLazyFrame", "ir.Column"]):
             return cast("ir.Column", ibis.cases((_input.notnull(), rank_)))
 
         return self._with_callable(_rank)
+
+    def log(self, base: float) -> Self:
+        def _log(_input: ir.NumericColumn) -> ir.Value:
+            otherwise = _input.log(cast("ir.NumericValue", lit(base)))
+            return ibis.cases(
+                (_input < lit(0), lit(float("nan"))),
+                (_input == lit(0), lit(float("-inf"))),
+                else_=otherwise,
+            )
+
+        return self._with_callable(_log)
 
     @property
     def str(self) -> IbisExprStringNamespace:

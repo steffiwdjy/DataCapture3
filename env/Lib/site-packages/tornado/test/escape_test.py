@@ -194,9 +194,11 @@ linkify_tests = [
     (
         "www.external-link.com and www.internal-link.com/blogs extra",
         {
-            "extra_params": lambda href: 'class="internal"'
-            if href.startswith("http://www.internal-link.com")
-            else 'rel="nofollow" class="external"'
+            "extra_params": lambda href: (
+                'class="internal"'
+                if href.startswith("http://www.internal-link.com")
+                else 'rel="nofollow" class="external"'
+            )
         },
         '<a href="http://www.external-link.com" rel="nofollow" class="external">www.external-link.com</a>'  # noqa: E501
         ' and <a href="http://www.internal-link.com/blogs" class="internal">www.internal-link.com/blogs</a> extra',  # noqa: E501
@@ -245,7 +247,7 @@ class EscapeTestCase(unittest.TestCase):
     def test_url_escape_unicode(self):
         tests = [
             # byte strings are passed through as-is
-            ("\u00e9".encode("utf8"), "%C3%A9"),
+            ("\u00e9".encode(), "%C3%A9"),
             ("\u00e9".encode("latin1"), "%E9"),
             # unicode strings become utf8
             ("\u00e9", "%C3%A9"),
