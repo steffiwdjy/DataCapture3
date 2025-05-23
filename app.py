@@ -198,11 +198,6 @@ if st.session_state.user is None:
         valid_email = is_valid_email(email)
         valid_password = len(password) >= 8
 
-        # if email and not valid_email:
-        #     st.error("Email tidak valid")
-        # if password and not valid_password:
-        #     st.error("Password harus minimal 8 karakter")
-
         if st.button("Daftar"):
             if not email or not password:
                 if not email and not password:
