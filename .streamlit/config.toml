@@ -4,6 +4,7 @@ enableCORS = false
 port = 8501
 
 [theme]
+base = "dark"
 primaryColor = "#F63366"
 backgroundColor = "#0E1117"
 secondaryBackgroundColor = "#262730"
