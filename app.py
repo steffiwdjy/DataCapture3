@@ -12,13 +12,13 @@ from streamlit_option_menu import option_menu
 import requests
 import json
 from dotenv import load_dotenv
-import spacy
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    from spacy.cli import download
-    download("en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+# import spacy
+# try:
+#     nlp = spacy.load("en_core_web_sm")
+# except OSError:
+#     from spacy.cli import download
+#     download("en_core_web_sm")
+#     nlp = spacy.load("en_core_web_sm")
 
 
 load_dotenv()
