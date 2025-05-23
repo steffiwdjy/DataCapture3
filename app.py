@@ -198,20 +198,26 @@ if st.session_state.user is None:
         valid_email = is_valid_email(email)
         valid_password = len(password) >= 8
 
-        if email and not valid_email:
-            st.error("Email tidak valid")
-        if password and not valid_password:
-            st.error("Password harus minimal 8 karakter")
+        # if email and not valid_email:
+        #     st.error("Email tidak valid")
+        # if password and not valid_password:
+        #     st.error("Password harus minimal 8 karakter")
 
         if st.button("Daftar"):
-            if not email:
-                st.error("Email harus diisi")
+            if not email or not password:
+                if not email and not password:
+                    st.error("Email dan password harus diisi")
+                elif not email:
+                    st.error("Email harus diisi")
+                elif not password:
+                    st.error("Password harus diisi")
+            elif not valid_email and not valid_password:
+                st.error("Email dan password tidak valid")
             elif not valid_email:
                 st.error("Email tidak valid")
-            elif not password:
-                st.error("Password harus diisi")
             elif not valid_password:
                 st.error("Password harus minimal 8 karakter")
+
             elif email in users:
                 st.error("Email sudah terdaftar")
             else:
